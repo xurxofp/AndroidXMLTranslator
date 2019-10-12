@@ -3,6 +3,10 @@ This is a Python script to translate your string.xml files for your Android proj
 
 ## How to use
 ```
+pip3 install -r requirements.txt
+```
+
+```
 $ python3 translator.py -h
 usage: translator.py [-h] [-l LANG] [-a [ALL]] [--list [LIST]] [-v] inFile inLang
 

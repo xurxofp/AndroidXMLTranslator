@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import os
 import re
 import argparse
@@ -181,19 +183,27 @@ for language_name in languages_to_translate:
                 textToSplit.append(output)
 
     textToTranslate = ""
+    translatedText = ""
+    x = 0
     for line in textToSplit:
+        if (len(textToTranslate) > 2500):
+            print("Translating group of " + str(len(textToTranslate)) + " characters")
+            translatedText += translator.translate(textToTranslate, language_to_translate).text
+            translatedText += "\n"           
+            textToTranslate = ""
+            
         even = True
         for i in range(len(line)):
             if even:
-                textToTranslate += line[i] + "\n"
+                textToTranslate += line[i] + "\t\n"
                 even = False
             else:
                 textToTranslate += "¶\n"
                 even = True
 
-
-    translatedText = translator.translate(textToTranslate, language_to_translate).text
-
+    print("Translating last group of " + str(len(textToTranslate)) + " characters")
+    translatedText += translator.translate(textToTranslate, language_to_translate).text 
+    
     linesTranslated = translatedText.splitlines()
 
     i = 0
@@ -210,7 +220,6 @@ for language_name in languages_to_translate:
                 outputText += linesTranslated[k]
             j += 1
             k += 1
-        print(outputText)
         root[i].text = outputText
         i += 1
 
