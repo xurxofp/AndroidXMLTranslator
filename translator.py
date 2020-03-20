@@ -211,16 +211,17 @@ for language_name in languages_to_translate:
     outputText = ""
     while i < len(textToSplit):
         j = 0
-        while j < len(textToSplit[i]):
-            if j == 0:
-                outputText = ""
-            if linesTranslated[k] == "¶":
-                outputText += textToSplit[i][j]
-            else:
-                outputText += linesTranslated[k]
-            j += 1
-            k += 1
-        root[i].text = outputText
+        if 'translatable' not in root[i].attrib:
+            while j < len(textToSplit[i]):
+                if j == 0:
+                    outputText = ""
+                if linesTranslated[k] == "¶":
+                    outputText += textToSplit[i][j]
+                else:
+                    outputText += linesTranslated[k]
+                j += 1
+                k += 1
+            root[i].text = outputText
         i += 1
 
     translated_file = translated_file_directory + "/strings.xml"
